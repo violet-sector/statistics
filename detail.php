@@ -7,11 +7,11 @@
 include 'functions.php';
 
 if(isset($_REQUEST['pilot'])){
-    $pilot = $connection->real_escape_string($_REQUEST['pilot']);
+    $pilot = $_REQUEST['pilot'];
     $turn = getTurn();
     $date = date("Y-m-d H:i:s"); 
     $ts = getLastDBUpdate();
-    echo "<h2>Pilot: $pilot history</h2>";
+    echo "<h2>Pilot: ".htmlentities($pilot, ENT_QUOTES, 'UTF-8')." history</h2>";
 
     $history = getPilotHistoryFromDatabase($pilot);
     $current_pilots = getPilots();
@@ -21,6 +21,10 @@ if(isset($_REQUEST['pilot'])){
 }
 ?>
 <script type="text/javascript">
-var table = new Tabulator("#pilots-table", {width:"500px",layout:"fitDataTable", });
+var table = new Tabulator("#pilots-table", {width:"500px",layout:"fitDataTable", 
+columns:[
+{title:"Turn", field:"turn", formatter:"number"},
+{title:"Rank", field:"number", formatter:"number"},
+{title:"Pilot", field:"url_label", formatter:"html"},
+]});
 </script>
-

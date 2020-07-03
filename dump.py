@@ -20,7 +20,7 @@ from collections import OrderedDict
   # `online` tinyint(1) DEFAULT '0',
   # `ts` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   # `turn` int(4) NOT NULL
-# ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+# ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 class TVSDump():
 
@@ -41,13 +41,14 @@ class TVSDump():
         self.db = MySQLdb.connect(host="localhost",    # your host, usually localhost
                                  user="",         # your username
                                  passwd="",  # your password
-                                 db="tvs")        # name of the data base
+                                 db="tvs",        # name of the data base
+                                 charset="utf8mb4")
         cursor = self.db.cursor()
         rank=1
         for value in data['rankings_pilots']:
             #print value['tvs_username'].encode('utf-8').decode('cp1252')
             sql = "INSERT INTO `tvs` (`rank`,`tvs_username`, `legion`, `level`, `hp`, `maxhp`, `ship`, `score`, `kills`, `deaths`, `online`, `turn`) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-            cursor.execute(sql, (rank,value['tvs_username'].encode('utf-8').decode('cp1252'),int(value['legion']),int(value['level']),int(value['hp']),int(value['maxhp']),int(value['ship']),int(value['score']),int(value['kills']),int(value['deaths']),int(value['online']),tick))
+            cursor.execute(sql, (rank,value['tvs_username'],int(value['legion']),int(value['level']),int(value['hp']),int(value['maxhp']),int(value['ship']),int(value['score']),int(value['kills']),int(value['deaths']),int(value['online']),tick))
             rank += 1
         cursor.execute('COMMIT')
         self.db.close()
