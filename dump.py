@@ -1,5 +1,4 @@
-import httplib, urllib
-import urllib2
+from urllib.request import urlopen
 import simplejson
 import MySQLdb
 from collections import OrderedDict
@@ -27,13 +26,13 @@ class TVSDump():
     def __init__(self):
 
 		#{"start":1591959600,"start_offset":3600,"now":1593521485,"now_offset":3600,"tick_length":10800,"tick":145,"secs_left":4115}
-        response = urllib2.urlopen("https://www.violetsector.com/json/timer.php")
+        response = urlopen("https://www.violetsector.com/json/timer.php")
         data = simplejson.load(response, object_pairs_hook=OrderedDict)
         #print(data)
         tick = int(data['tick'])
 #       print(tick)
-#       
-        response = urllib2.urlopen("https://www.violetsector.com/test.php")
+
+        response = urlopen("https://www.violetsector.com/test.php")
         data = simplejson.load(response, object_pairs_hook=OrderedDict)
 #       print(data)
 #       print(data['rankings_pilots'])
