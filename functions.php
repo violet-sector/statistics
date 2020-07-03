@@ -75,12 +75,13 @@ function getLastDBUpdate() {
 
 function getPilotHistoryFromDatabase($pilot) {
     global $connection;
+    $pilot = $connection->real_escape_string($pilot);
     //fetch table rows from mysql db
     $sql = "select * from tvs where tvs_username = '$pilot'";
     $result = mysqli_query($connection, $sql) or die("Error in Selecting " . mysqli_error($connection));
 
     //create an array
-    $pilots = array();
+    $history = array();
     while($row =mysqli_fetch_assoc($result))
     {
         $history[] = $row;
@@ -150,7 +151,7 @@ function createHistoryHtmlTable($pilot, $data, $json_data) {
             $tablehtml="<tr>
                 <td>".$value['turn']."</td>
                 <td>".$value['rank']."</td>
-                <td>".$value['tvs_username']."</td>
+                <td>".htmlentities($value['tvs_username'], ENT_QUOTES, 'UTF-8')."</td>
                 <td>".$legions[$value['legion']]."</td>
                 <td>".$value['level']."</td>
                 <td>".$value['hp']."</td>
@@ -182,7 +183,7 @@ function createHistoryHtmlTable($pilot, $data, $json_data) {
     $tablehtml="<tr>
                 <td>".$turn."</td>
                 <td>".$rank."</td>
-                <td>".$value['tvs_username']."</td>
+                <td>".htmlentities($value['tvs_username'], ENT_QUOTES, 'UTF-8')."</td>
                 <td>".$legions[$value['legion']]."</td>
                 <td>".$value['level']."</td>
                 <td>".$value['hp']."</td>
@@ -244,7 +245,7 @@ function createRankingHtmlTable($data, $db_data) {
             }
             $tablehtml.="<tr>
                 <td>".$rank."</td>
-                <td>".$value['tvs_username']."</td>
+                <td><a href='detail.php?pilot=".urlencode($value['tvs_username'])."'>".htmlentities($value['tvs_username'], ENT_QUOTES, 'UTF-8')."</a></td>
                 <td>".$legions[$value['legion']]."</td>
                 <td>".$value['level']."</td>
                 <td>".$value['hp']."</td>

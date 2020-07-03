@@ -18,7 +18,7 @@ echo createRankingHtmlTable($pilots,$dbpilots);
 <script type="text/javascript">
 var table = new Tabulator("#pilots-table", {width:"500px",layout:"fitDataTable", columns:[
 {title:"Rank", field:"number", formatter:"number"},
-{title:"Pilot", field:"url_label", formatter:"link", formatterParams:{url:function(cell){return "detail.php?pilot=" + cell.getValue();}}},
+{title:"Pilot", field:"url_label", formatter:"html"},
  ],});
 </script>
 
