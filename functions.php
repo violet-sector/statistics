@@ -1,8 +1,8 @@
 <?PHP
 ini_set("allow_url_fopen", 1);
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+#ini_set('display_errors', 1);
+#ini_set('display_startup_errors', 1);
+#error_reporting(E_ALL);
 include_once("dblogon.php");
 
 $legions = array("None","Ajaxian", "Boraxian", "Krilgorian", "Tibran","Rogue");
@@ -174,6 +174,10 @@ function createHistoryHtmlTable($pilot, $data, $json_data) {
     $turn = getTurn();
     $rank = $pilot_index+1;
     $ts = date("Y-m-d H:i:s"); 
+	$score_diff =0;
+	$hp_diff  =0;
+	$dead_diff =0;
+	$kill_diff =0;
     if ($prev_value != null) { 
         $score_diff = $value['score']-$prev_value['score'];
         $hp_diff = $value['hp']-$prev_value['hp'];
