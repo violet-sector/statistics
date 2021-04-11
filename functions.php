@@ -59,7 +59,7 @@ function getTurn() {
 }
 
 function getPilots() {
-    $json = file_get_contents("https://www.violetsector.com/test.php");
+    $json = file_get_contents("https://www.violetsector.com/json/rankings_pilots_dump.php");
     $pilots = json_decode($json, true);
     return $pilots['rankings_pilots'];
 }

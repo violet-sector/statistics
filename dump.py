@@ -32,7 +32,7 @@ class TVSDump():
         tick = int(data['tick'])
 #       print(tick)
 
-        response = urlopen("https://www.violetsector.com/test.php")
+        response = urlopen("https://www.violetsector.com/json/rankings_pilots_dump.php")
         data = simplejson.load(response, object_pairs_hook=OrderedDict)
 #       print(data)
 #       print(data['rankings_pilots'])
